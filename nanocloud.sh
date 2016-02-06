@@ -21,7 +21,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-SCRIPT_FULL_PATH=$(readlink -e "${0}")
+SCRIPT_FULL_PATH=$(realpath "${0}")
 CURRENT_DIR=$(dirname "${SCRIPT_FULL_PATH}")
 DATE_FMT="+%Y/%m/%d %H:%M:%S"
 

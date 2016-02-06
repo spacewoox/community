@@ -1,89 +1,122 @@
-guacamole-client:
- extends:
-  file: ./docker-compose.yml
-  service: guacamole-client
+version: '2'
 
-guacamole-server:
- extends:
-  file: ./docker-compose.yml
-  service: guacamole-server
+services:
+  guacamole-client:
+   extends:
+    file: ./docker-compose.yml
+    service: guacamole-client
+   networks:
+    - nanocloud
 
-nanocloud-backend:
- extends:
-  file: ./docker-compose.yml
-  service: nanocloud-backend
- volumes_from:
-  - nanocloud-frontend
+  guacamole-server:
+   extends:
+    file: ./docker-compose.yml
+    service: guacamole-server
+   networks:
+    - nanocloud
 
-nanocloud-frontend:
- extends:
-  file: ./docker-compose.yml
-  service: nanocloud-frontend
- volumes:
-  - /opt/front
- build: ../webapp
- dockerfile: Dockerfile-dev
- volumes:
-  - ../webapp/:/opt/front
- restart: always
- container_name: "nanocloud-frontend"
+  nanocloud-backend:
+   extends:
+    file: ./docker-compose.yml
+    service: nanocloud-backend
+   volumes_from:
+    - nanocloud-frontend
+   networks:
+    - nanocloud
 
-proxy:
- extends:
-  file: ./docker-compose.yml
-  service: proxy
+  nanocloud-frontend:
+   extends:
+    file: ./docker-compose.yml
+    service: nanocloud-frontend
+   volumes:
+    - /opt/front
+   build:
+    context: ../webapp
+    dockerfile: Dockerfile-dev
+   volumes:
+    - ../webapp/:/opt/front
+   restart: always
+   container_name: "nanocloud-frontend"
+   networks:
+    - nanocloud
 
-rabbitmq:
- extends:
-  file: ./docker-compose.yml
-  service: rabbitmq
+  proxy:
+   extends:
+    file: ./docker-compose.yml
+    service: proxy
+   networks:
+    - nanocloud
 
-postgres:
- extends:
-  file: ./docker-compose.yml
-  service: postgres
+  rabbitmq:
+   extends:
+    file: ./docker-compose.yml
+    service: rabbitmq
+   networks:
+    - nanocloud
 
-apps-module:
- extends:
-  file: ./docker-compose.yml
-  service: apps-module
- build: ./apps
- dockerfile: Dockerfile-dev
- volumes:
-  - ./apps/:/go/src/github.com/Nanocloud/community/modules/apps/
+  postgres:
+   extends:
+    file: ./docker-compose.yml
+    service: postgres
+   networks:
+    - nanocloud
 
-history-module:
- extends:
-  file: ./docker-compose.yml
-  service: history-module
- build: ./history
- dockerfile: Dockerfile-dev
- volumes:
-  - ./history/:/go/build/history
+  apps-module:
+   extends:
+    file: ./docker-compose.yml
+    service: apps-module
+   build:
+    context: ./apps
+    dockerfile: Dockerfile-dev
+   volumes:
+    - ./apps/:/go/src/github.com/Nanocloud/community/modules/apps/
+   networks:
+    - nanocloud
 
-iaas-module:
- extends:
-  file: ./docker-compose.yml
-  service: iaas-module
- build: ./iaas
- dockerfile: Dockerfile-dev
- volumes:
-  - ./iaas/:/go/src/github.com/Nanocloud/community/modules/iaas/
+  history-module:
+   extends:
+    file: ./docker-compose.yml
+    service: history-module
+   build: 
+    context: ./history
+    dockerfile: Dockerfile-dev
+   volumes:
+    - ./history/:/go/build/history
+   networks:
+    - nanocloud
 
-ldap-module:
- extends:
-  file: ./docker-compose.yml
-  service: ldap-module
- build: ./ldap
- dockerfile: Dockerfile-dev
- volumes:
-  - ./ldap/:/go/src/github.com/Nanocloud/community/modules/ldap/
+  iaas-module:
+   extends:
+    file: ./docker-compose.yml
+    service: iaas-module
+   build:
+    context: ./iaas
+    dockerfile: Dockerfile-dev
+   volumes:
+    - ./iaas/:/go/src/github.com/Nanocloud/community/modules/iaas/
+   networks:
+    - nanocloud
 
-users-module:
- extends:
-  file: ./docker-compose.yml
-  service: users-module
- build: ./users
- dockerfile: Dockerfile-dev
- volumes:
-  - ./users/:/go/src/github.com/Nanocloud/community/modules/users/
+  ldap-module:
+   extends:
+    file: ./docker-compose.yml
+    service: ldap-module
+   build:
+    context: ./ldap
+    dockerfile: Dockerfile-dev
+   volumes:
+    - ./ldap/:/go/src/github.com/Nanocloud/community/modules/ldap/
+   networks:
+    - nanocloud
+
+  users-module:
+   extends:
+    file: ./docker-compose.yml
+    service: users-module
+   build:
+    context: ./users
+    dockerfile: Dockerfile-dev
+   volumes:
+    - ./users/:/go/src/github.com/Nanocloud/community/modules/users/
+   networks:
+    - nanocloud

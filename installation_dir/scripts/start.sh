@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SCRIPT_FULL_PATH=$(readlink -e "${0}")
+SCRIPT_FULL_PATH=$(realpath "${0}")
 CURRENT_DIR=$(dirname "${SCRIPT_FULL_PATH}")
 DATE_FMT="+%Y/%m/%d %H:%M:%S"
 
@@ -62,16 +62,16 @@ fi
 if [ -f "${DOCKER_COMPOSE_BUILD_OUTPUT}" ]; then
     echo "$(date "${DATE_FMT}") Starting nanocloud containers from local build"
     if [ "${COMMUNITY_CHANNEL}" = "dev" ]; then
-	docker-compose --file "${ROOT_DIR}/modules/docker-compose-dev.yml" --x-networking up -d
+	docker-compose --file "${ROOT_DIR}/modules/docker-compose-dev.yml" up -d
     else
-	docker-compose --file "${ROOT_DIR}/modules/docker-compose-build.yml" --x-networking up -d
+	docker-compose --file "${ROOT_DIR}/modules/docker-compose-build.yml" up -d
     fi
 else
     echo "$(date "${DATE_FMT}") Starting nanocloud containers from docker hub $COMMUNITY_CHANNEL"
     if [ "${COMMUNITY_CHANNEL}" = "indiana" ]; then
-	docker-compose --file "${ROOT_DIR}/docker-compose-indiana.yml" --x-networking up -d
+	docker-compose --file "${ROOT_DIR}/docker-compose-indiana.yml" up -d
     else
-	docker-compose --file "${ROOT_DIR}/docker-compose.yml" --x-networking up -d
+	docker-compose --file "${ROOT_DIR}/docker-compose.yml" up -d
     fi
 fi
 
