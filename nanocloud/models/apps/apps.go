@@ -416,7 +416,7 @@ func RetrieveConnections(user *users.User, users []*users.User) ([]Connection, e
 
 func init() {
 	kUser = utils.Env("USER", "Administrator")
-	kProtocol = utils.Env("PROTOCOL", "rdp")
+	kProtocol = "rdp"
 	kSSHPort = utils.Env("SSH_PORT", "22")
 	kRDPPort = utils.Env("RDP_PORT", "3389")
 	kServer = utils.Env("SERVER", "62.210.56.76")
