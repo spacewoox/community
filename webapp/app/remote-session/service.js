@@ -63,13 +63,14 @@ export default Ember.Service.extend({
 
     return this.get('guacToken').then((token) => {
 
-      let tunnel = new Guacamole.WebSocketTunnel('/guacamole/websocket-tunnel?' + this._forgeConnectionString(token.authToken, name, width, height));
+      let tunnel = new Guacamole.WebSocketTunnel('ws://172.16.200.131/guacamole/websocket-tunnel?' + this._forgeConnectionString(token.authToken, name, width, height));
       let guacamole = new Guacamole.Client(
         tunnel
       );
       this.set('openedGuacSession.' + name, Ember.Object.create({ guac : guacamole }));
       this.keyboardAttach(name);
 
+      console.log(this.get('openedGuacSession'));
       return guacamole;
     });
   },
