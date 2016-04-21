@@ -3,8 +3,16 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
   remoteSession: Ember.inject.service('remote-session'),
-
   connectionName: null,
+  isVisible: Ember.computed('componentParams.isVisible', function() {
+    return this.get('componentParams.isVisible');
+  }),
+
+  elementBecameVisible: function() {
+
+    console.log('element became visible: ' + this.get('isVisible'));
+    this.get('parentContext').toggling();
+  }.on('becameVisible'),
 
   topBarItemToggleWindowCollector: {
     upload: false,
@@ -43,7 +51,7 @@ export default Ember.Component.extend({
   actions: {
 
     toggleSingleTab() {
-      this.toggleProperty('isVisible');
+      this.get('parentContext').toggling();
     },
 
     toggleUploadWindow() {

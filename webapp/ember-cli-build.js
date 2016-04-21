@@ -8,6 +8,11 @@ module.exports = function(defaults) {
     emberCliFontAwesome: {
       useScss: true, // for ember-cli-sass
       useLess: false // for ember-cli-less
+    },
+
+    velocityOptions: {
+      enabled: true, // enabled the addon (default: true) 
+      ui: false // add Velocity UI Pack (default: false) 
     }
   });
 
@@ -28,6 +33,8 @@ module.exports = function(defaults) {
     type: 'vendor',
     prepend: true
   });
+
+  app.import('bower_components/velocity/velocity.js');
 
   app.import('bower_components/flow.js/dist/flow.js');
 

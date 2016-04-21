@@ -1,9 +1,23 @@
 .ember-modal-fullscreen {
+  @extend .transition-enabled;
   width: 100%;
   height: 100%;
   border-radius: 0;
   padding: 0;
+  left: -100%;
+  opacity: 0;
+
+  &.state-visible {
+    opacity: 1;
+    left: 0;
+  },
+
+  &.state-hide {
+    opacity: 0;
+    left: -100%;
+  }
 }
+
 
 .remote-session-topbar {
   height: $topbar-height;

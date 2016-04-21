@@ -27,9 +27,22 @@
   </div>
 </div>
 
+{{#inherited-object 
+	targetComponent="single-tab"
+  inheritFrom="nano-togglable"
+  componentParams=(hash 
+      isVisible=showSingleTab
+      onClose="disconnectGuacamole"
+      connectionName=connectionName)
+ }}
+  {{remote-session connectionName=connectionName}}
+{{/inherited-object}}
+
+<!--
 {{#single-tab isVisible=showSingleTab onClose="disconnectGuacamole" connectionName=connectionName}}
   {{remote-session connectionName=connectionName}}
 {{/single-tab}}
+-->
 
 {{#file-explorer isVisible=showFileExplorer publishDone="updateModel"}}
 {{/file-explorer}}

@@ -1,84 +1,87 @@
-{{#if isVisible }}
-  {{#modal-dialog containerClassNames="ember-modal-fullscreen"
-    attachment="" targetAttachment=""}}
+  <div class='single-tab'>
 
-    {{#vdi-drag-n-drop as |uploadData|}}  
-      <div class="ember-modal-fullscreen">
-        <div class="remote-session-topbar">
-          <div class="left">
-            {{#if uploadData.progress}}
-                {{ topbar-item 
-                  materialIcon="call_made"
-                  clickable=true
-                  hover-enabled=true
-                  class="upload-state-enabled"
-                  click="toggleUploadWindow"
-                }}
-                {{#unless uploadData.state}}
-                  <span class="state">
-                    {{vdi-progress-formater uploadData.progress true }}
-                  </span>
-                {{/unless}}
-            {{else}}
+    {{#if componentParams.isVisible}}
+      {{#modal-dialog containerClassNames="ember-modal-fullscreen"
+        attachment="" targetAttachment="" renderInPlace=true }}
+
+        {{#vdi-drag-n-drop as |uploadData|}}
+          <div class="ember-modal-fullscreen">
+            <div class="remote-session-topbar">
+              <div class="left">
+                {{#if uploadData.progress}}
+                    {{ topbar-item 
+                      materialIcon="call_made"
+                      clickable=true
+                      hover-enabled=true
+                      class="upload-state-enabled"
+                      click="toggleUploadWindow"
+                    }}
+                    {{#unless uploadData.state}}
+                      <span class="state">
+                        {{vdi-progress-formater uploadData.progress true }}
+                      </span>
+                    {{/unless}}
+                {{else}}
+                   {{ topbar-item 
+                      materialIcon="call_made"
+                      clickable=true
+                      hover-enabled=true
+                      class="upload-state-disabled"
+                      click="toggleUploadWindow"
+                    }}
+                {{/if}}
+                
+                <span class="state">{{uploadData.state}}</span>
+                {{#if uploadData.progress}}
+                  <span class="link" {{ action uploadData.stopUpload }}>Cancel All</span>
+                {{/if}}
                {{ topbar-item 
-                  materialIcon="call_made"
+                  materialIcon="content_copy"
                   clickable=true
                   hover-enabled=true
-                  class="upload-state-disabled"
-                  click="toggleUploadWindow"
+                  click="toggleClipboardWindow"
+                  adjustIcon=true
                 }}
-            {{/if}}
-            
-            <span class="state">{{uploadData.state}}</span>
-            {{#if uploadData.progress}}
-              <span class="link" {{ action uploadData.stopUpload }}>Cancel All</span>
-            {{/if}}
-           {{ topbar-item 
-              materialIcon="content_copy"
-              clickable=true
-              hover-enabled=true
-              click="toggleClipboardWindow"
-              adjustIcon=true
-            }}
 
-           {{ topbar-item 
-              materialIcon="vertical_align_bottom"
-              clickable=true
-              hover-enabled=true
-              click="toggleDownloadWindow"
-            }}
+               {{ topbar-item 
+                  materialIcon="vertical_align_bottom"
+                  clickable=true
+                  hover-enabled=true
+                  click="toggleDownloadWindow"
+                }}
+              </div>
+              <div class="right">
+                {{ topbar-item 
+                  clickable=true
+                  class="go-back"
+                  hover-enabled=true
+                  materialIcon="home"
+                  click="toggleSingleTab"
+                }}
+              </div>
+            </div>
+            <div class="canva-fullscreen">
+
+              {{#vdi-upload
+                queue=uploadData.queue
+                stateVisible=uploadIsVisible
+                flushHistory=uploadData.flushHistory
+                cancelSingleUpload=uploadData.cancelSingleUpload}}
+              {{/vdi-upload}}
+
+              {{#vdi-clipboard
+                connectionName=componentParams.connectionName
+                stateVisible=clipboardIsVisible}}
+              {{/vdi-clipboard}}
+
+              {{#vdi-download
+                stateVisible=downloadIsVisible}}
+              {{/vdi-download}}
+
+              {{yield}}
+            </div>
           </div>
-          <div class="right">
-            {{ topbar-item 
-              clickable=true
-              class="go-back"
-              hover-enabled=true
-              materialIcon="home"
-              click="toggleSingleTab"
-            }}
-          </div>
-        </div>
-        <div class="canva-fullscreen">
-
-          {{#vdi-upload
-            queue=uploadData.queue
-            stateVisible=uploadIsVisible
-            flushHistory=uploadData.flushHistory
-            cancelSingleUpload=uploadData.cancelSingleUpload}}
-          {{/vdi-upload}}
-
-          {{#vdi-clipboard
-            connectionName=connectionName
-            stateVisible=clipboardIsVisible}}
-          {{/vdi-clipboard}}
-
-          {{#vdi-download
-            stateVisible=downloadIsVisible}}
-          {{/vdi-download}}
-
-          {{yield}}
-        </div>
-      </div>
-    {{/vdi-drag-n-drop }}  
-  {{/modal-dialog}}
-{{/if}}
+        {{/vdi-drag-n-drop }}  
+      {{/modal-dialog}}
+    {{/if}}
+  </div>

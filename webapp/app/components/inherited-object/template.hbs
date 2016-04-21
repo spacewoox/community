@@ -1,0 +1,12 @@
+{{#component inheritFrom componentParams=componentParams as |componentParams parentContext| }}
+  
+  {{#component targetComponent 
+      componentParams=componentParams
+      parentContext=parentContext
+  }}
+
+    {{yield}}
+
+	{{/component}}
+  
+{{/component}}

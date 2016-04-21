@@ -70,7 +70,6 @@ export default Ember.Service.extend({
       this.set('openedGuacSession.' + name, Ember.Object.create({ guac : guacamole }));
       this.keyboardAttach(name);
 
-      console.log(this.get('openedGuacSession'));
       return guacamole;
     });
   },
