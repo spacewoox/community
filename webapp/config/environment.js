@@ -19,7 +19,7 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
-    GUACAMOLE_URL: "/guacamole/",
+    GUACAMOLE_URL: "http://172.16.200.131/guacamole/",
 
 
     'ember-simple-auth': {
