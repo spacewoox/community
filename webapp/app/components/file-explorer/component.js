@@ -94,7 +94,7 @@ export default Ember.Component.extend({
 
     let name = this.get('selectedFile').get('name').replace(/\.[^/.]+$/, "");
 
-    let m = this.get('store').createRecord('application', {
+    let m = this.get('store').createRecord('app', {
       alias: name,
       displayName: name, 
       collectionName: "collection",

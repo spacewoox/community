@@ -151,7 +151,7 @@ func UnpublishApplication(c *echo.Context) error {
 }
 
 func PublishApplication(c *echo.Context) error {
-	app := &apps.Application{}
+	app := &apps.App{}
 	err := utils.ParseJSONBody(c, app)
 	if err != nil {
 		return err

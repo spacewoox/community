@@ -8,9 +8,8 @@ export default Ember.Route.extend({
   },
 
   model() {
-    var model = this.store.query('history', {});
     this.controllerFor('protected.histories.index').setData();
-    return model;
+    return this.store.query('history', {});
   },
 
   actions: {
