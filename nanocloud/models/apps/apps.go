@@ -431,13 +431,9 @@ func RetrieveConnections(user *users.User, users []*users.User) ([]Connection, e
 }
 
 func init() {
-	kUser = utils.Env("USER", "Administrator")
-	kProtocol = "rdp"
-	kSSHPort = utils.Env("SSH_PORT", "22")
+	kProtocol = utils.Env("PROTOCOL", "rdp")
 	kRDPPort = utils.Env("RDP_PORT", "3389")
-	kServer = utils.Env("PLAZA_ADDRESS", "")
-	kPassword = utils.Env("PASSWORD", "ItsPass1942+")
-	kWindowsDomain = utils.Env("WINDOWS_DOMAIN", "intra.localdomain.com")
+	kServer = utils.Env("EXECUTION_SERVERS", "iaas-module")
 	kExecutionServers = strings.Split(utils.Env("EXECUTION_SERVERS", ""), ",")
 
 	if kServer == "" {

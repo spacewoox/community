@@ -71,7 +71,10 @@ export default Ember.Service.extend({
       this.keyboardAttach(name);
 
       console.log(this.get('openedGuacSession'));
-      return guacamole;
+      return  {
+        tunnel : tunnel,
+        guacamole: guacamole
+      };
     });
   },
 
