@@ -97,6 +97,10 @@ h1 {
   }
 }
 
+.color-gray-light {
+  color: $gray-light;
+}
+
 .color-gray-dark {
   color: $gray-darker;
 }
@@ -200,6 +204,10 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.tooltipstered {
+  position: relative;
 }
 
 .tooltipster-default {
