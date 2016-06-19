@@ -1,8 +1,26 @@
+
+.packaging-name-input {
+  font-size: 12px;
+  height: 30px;
+  padding-left: 10px;
+  width: 300px;
+}
+
+@media (max-width: 991px) {
+
+  .packagingModal {
+    left: 0 !important;
+    top: 50%;
+    margin-top: -65px;
+    width: 95%;
+    margin-left: auto !important;
+  }
+}
+
 .ember-modal-fullscreen {
 
   width: 100%;
-  height: 100%;
-  border-radius: 0;
+  height: 100%; border-radius: 0;
   padding: 0;
 
   &.vdi-off {
@@ -22,6 +40,10 @@
       pointer-events: auto;
     }
   }
+}
+
+.modal-dialog {
+  padding: 0;
 }
 
 .vdi-load-background {
